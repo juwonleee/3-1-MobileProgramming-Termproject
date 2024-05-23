@@ -8,4 +8,48 @@
     android:background="@color/black"
     tools:context=".SettingFragment">
 
+    <EditText
+        android:id="@+id/Edit1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="키(cm)" />
+
+    <EditText
+        android:id="@+id/Edit2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="몸무게(kg)" />
+
+    <EditText
+        android:id="@+id/Edit3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="목표몸무게(kg)" />
+
+    <Button
+        android:id="@+id/BtnAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="확인" />
+
+    <TextView
+        android:id="@+id/TextResult1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#0000FF"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/TextResult2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#0000FF"
+        android:textSize="20dp" />
+
 </FrameLayout>
