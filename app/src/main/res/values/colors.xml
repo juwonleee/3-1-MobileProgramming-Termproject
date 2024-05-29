@@ -8,4 +8,5 @@
     <color name="primary_on">#ffffff</color>
     <color name="primary_container">#98FB98</color>
     <color name="primary_container_on">#001E2B</color>
+    <color name="background_login">#1F89EF</color>
 </resources>

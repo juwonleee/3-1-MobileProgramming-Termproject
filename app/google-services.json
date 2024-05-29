@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "844107721602",
+    "project_id": "nako-e0b5a",
+    "storage_bucket": "nako-e0b5a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844107721602:android:27a5aa1b538a8e20be3d9b",
+        "android_client_info": {
+          "package_name": "com.example.nako"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "844107721602-0a1126ruelf2230c5kl4iuah4bc8crq4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nako",
+            "certificate_hash": "cca85755320f535cf35dacf97246df66c3d2d225"
+          }
+        },
+        {
+          "client_id": "844107721602-6ipa9u6duqrt8t4rl5gg879j769a4m2c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvjsw1vUm5dFvwy5IeJBDEZAGkgIJlEyw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "844107721602-6ipa9u6duqrt8t4rl5gg879j769a4m2c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
