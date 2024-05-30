@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.navigation_bar_item_1) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new HomeFragment()).commit();
                 } else if (id == R.id.navigation_bar_item_2) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new DietFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new PredictKcalFragment()).commit();
                 } else if (id == R.id.navigation_bar_item_3) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new ExerciseFragment()).commit();
                 } else if (id == R.id.navigation_bar_item_4) {
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private void initializeFragments() {
         fragment = new Fragment[4];
         fragment[0] = new HomeFragment();
-        fragment[1] = new DietFragment();
+        fragment[1] = new PredictKcalFragment();
         fragment[2] = new ExerciseFragment();
         fragment[3] = new SettingFragment();
 
