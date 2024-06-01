@@ -6,6 +6,7 @@
     <string name="text_label_2">Diet</string>
     <string name="text_label_3">Exercise</string>
     <string name="text_label_4">Setting</string>
+    <string name="text_label_5">Cafeteria</string>
 
     <!--exercise에 관한 String -->
     <string name="introduce_exercise">간단한 운동 소개</string>
@@ -47,4 +48,7 @@
         (4) 2번 자세로 돌아온다.\n
         (5) 1~4번을 반복한다.
     </string>
+
+    <!--학식메뉴 칼로리 예측 타이틀-->
+    <string name="title_cafeteria">학생생활관식당 점심 메뉴</string>
 </resources>

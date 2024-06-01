@@ -43,23 +43,28 @@ public class MainActivity extends AppCompatActivity {
                 if (id == R.id.navigation_bar_item_1) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new HomeFragment()).commit();
                 } else if (id == R.id.navigation_bar_item_2) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new PredictKcalFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new DietFragment()).commit();
                 } else if (id == R.id.navigation_bar_item_3) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new ExerciseFragment()).commit();
                 } else if (id == R.id.navigation_bar_item_4) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new SettingFragment()).commit();
                 }
+                else if (id == R.id.navigation_bar_item_5) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contents_layout, new PredictKcalFragment()).commit();
+                }
+
 
                 return true;
             }
         });
     }
     private void initializeFragments() {
-        fragment = new Fragment[4];
+        fragment = new Fragment[5];
         fragment[0] = new HomeFragment();
-        fragment[1] = new PredictKcalFragment();
+        fragment[1] = new DietFragment();
         fragment[2] = new ExerciseFragment();
         fragment[3] = new SettingFragment();
+        fragment[4] = new PredictKcalFragment();
 
         fragmentManager.beginTransaction().add(R.id.contents_layout, fragment[0]).commit();
     }

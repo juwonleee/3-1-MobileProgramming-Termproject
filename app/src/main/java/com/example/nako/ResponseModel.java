@@ -118,7 +118,10 @@ public class ResponseModel {
         public String getKcal() {
             return kcal;
         }
-        public String getFood_name() {
+        public String getTotalSize() {
+            return total_size;
+        }
+        public String getFoodName() {
             return food_name;
         }
     }
