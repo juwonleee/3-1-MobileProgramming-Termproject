@@ -24,7 +24,7 @@
     <item
         android:id="@+id/navigation_bar_item_5"
         android:enabled="true"
-        android:icon="@drawable/icon_item_diet"
+        android:icon="@drawable/icon_item_cafeteria"
         android:title="@string/text_label_5"/>
 
 </menu>
