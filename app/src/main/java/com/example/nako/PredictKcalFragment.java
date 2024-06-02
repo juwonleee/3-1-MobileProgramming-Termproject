@@ -54,6 +54,9 @@ public class PredictKcalFragment extends Fragment {
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
     String today = formatter.format(calendar.getTime());
+
+    //(일요일 = 1, 토요일 = 7)
+    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
     ListView search_list;
     ArrayList<String> list;
 
@@ -140,107 +143,117 @@ public class PredictKcalFragment extends Fragment {
             }
         };
         //---------------------------------------
-        groupA.setVisibility(View.GONE);
-        groupB.setVisibility(View.GONE);
 
-        foodCategory.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.buttonA) {
-                // A 선택 시
-                groupA.setVisibility(View.VISIBLE);
-                groupB.setVisibility(View.GONE);
-                uncheckAllChildRadioButtons(groupB);
-            } else if (checkedId == R.id.buttonB) {
-                // B 선택 시
-                groupA.setVisibility(View.GONE);
-                groupB.setVisibility(View.VISIBLE);
-                uncheckAllChildRadioButtons(groupA);
-            }
-        });
+        if (dayOfWeek != Calendar.SUNDAY) {
+            groupA.setVisibility(View.GONE);
+            groupB.setVisibility(View.GONE);
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < groupA.getChildCount(); i++) {
-                    RadioButton radioButton = (RadioButton) groupA.getChildAt(i);
-                    if (radioButton.isChecked()) {
-                        Log.d("sadfsdfa", radioButton.getText().toString());
-                        getFoodCalories(radioButton.getText().toString());
-                        break;
-                    }
+            foodCategory.setOnCheckedChangeListener((group, checkedId) -> {
+                if (checkedId == R.id.buttonA) {
+                    // A 선택 시
+                    groupA.setVisibility(View.VISIBLE);
+                    groupB.setVisibility(View.GONE);
+                    uncheckAllChildRadioButtons(groupB);
+                } else if (checkedId == R.id.buttonB) {
+                    // B 선택 시
+                    groupA.setVisibility(View.GONE);
+                    groupB.setVisibility(View.VISIBLE);
+                    uncheckAllChildRadioButtons(groupA);
                 }
-            }
-        });
+            });
 
-        search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                displayFoodDetails(position);
-            }
-        });
-
-        final Bundle bundle = new Bundle();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                org.jsoup.nodes.Document doc = null;
-                String tem;
-                String date;
-                String[] tem_splits;
-                int i=0;
-
-                try {
-                    //크롤링 할 구문
-                    doc = Jsoup.connect(URL).get();	//URL 웹사이트에 있는 html 코드를 다 끌어오기
-                    Elements table = doc.select("div.table_1");
-                    Elements tBody = table.select("tBody");
-                    Elements rows = tBody.select("tr");
-
-                    //  현재 날짜에 맞는 식단 검색
-                    for (i=0;i<rows.size();i++) {
-                        Element row = rows.get(i);
-                        tem = row.text();
-                        String[] parts = tem.split(" ");
-                        date = parts[0];
-                        if(date.equals(today)) {
-                            bundle.putString("temperature", tem);
+            search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (int i = 0; i < groupA.getChildCount(); i++) {
+                        RadioButton radioButton = (RadioButton) groupA.getChildAt(i);
+                        if (radioButton.isChecked()) {
+                            Log.d("sadfsdfa", radioButton.getText().toString());
+                            getFoodCalories(radioButton.getText().toString());
                             break;
                         }
                     }
-                    //  얻어온 문자열 다듬을 정규표현식 패턴
-                    String pattern = "\\d+|\\([^\\)]+\\)|\\[\\S+\\]|아침|점심\\(한식\\)|점심\\(푸드코트\\)|[A-Z]\\코너|[.+]|저녁";
-
-                    // 0:morning 1:lunch_1 2:lunch_2 3:dinner
-                    for (int j=0;j<4;j++) {
-                        Element row = rows.get(i+j);
-                        tem = row.text();
-                        Log.i("origin_data ", tem);
-                        tem = tem.replaceAll(pattern, "").trim();
-                        Log.i("processing_data ", tem);
-                        tem_splits = tem.split("[\\p{Punct}\\s]+");
-
-                        if(j==0) {
-                            bundle.putStringArray("morning", tem_splits);
-                        }
-                        else if(j==1) {
-                            bundle.putStringArray("lunch_1", tem_splits);
-                        }
-                        else if(j==2) {
-                            bundle.putStringArray("lunch_2", tem_splits);
-                        }
-                        else {
-                            bundle.putStringArray("dinner", tem_splits);
-                        }
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
-                Message message = h1.obtainMessage();
-                message.setData(bundle);
-                h1.sendMessage(message);
-            }
-        }).start();
+            });
+
+            search_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    displayFoodDetails(position);
+                }
+            });
+
+
+            final Bundle bundle = new Bundle();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    org.jsoup.nodes.Document doc = null;
+                    String tem;
+                    String date;
+                    String[] tem_splits;
+                    int i=0;
+
+                    try {
+                        //크롤링 할 구문
+                        doc = Jsoup.connect(URL).get();	//URL 웹사이트에 있는 html 코드를 다 끌어오기
+                        Elements table = doc.select("div.table_1");
+                        Elements tBody = table.select("tBody");
+                        Elements rows = tBody.select("tr");
+
+                        //  현재 날짜에 맞는 식단 검색
+                        for (i=0;i<rows.size();i++) {
+                            Element row = rows.get(i);
+                            tem = row.text();
+                            String[] parts = tem.split(" ");
+                            date = parts[0];
+                            if(date.equals(today)) {
+                                bundle.putString("today", tem);
+                                break;
+                            }
+//                        else if (i == rows.size()) {
+//
+//                        }
+                        }
+                        //  얻어온 문자열 다듬을 정규표현식 패턴
+                        String pattern = "\\d+|\\([^\\)]+\\)|\\[\\S+\\]|아침|점심\\(한식\\)|점심\\(푸드코트\\)|[A-Z]\\코너|[.+]|저녁";
+
+                        // 0:morning 1:lunch_1 2:lunch_2 3:dinner
+                        for (int j=0;j<4;j++) {
+                            Element row = rows.get(i+j);
+                            tem = row.text();
+                            Log.i("origin_data ", tem);
+                            tem = tem.replaceAll(pattern, "").trim();
+                            Log.i("processing_data ", tem);
+                            tem_splits = tem.split("[\\p{Punct}\\s]+");
+
+                            if(j==0) {
+                                bundle.putStringArray("morning", tem_splits);
+                            }
+                            else if(j==1) {
+                                bundle.putStringArray("lunch_1", tem_splits);
+                            }
+                            else if(j==2) {
+                                bundle.putStringArray("lunch_2", tem_splits);
+                            }
+                            else {
+                                bundle.putStringArray("dinner", tem_splits);
+                            }
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Message message = h1.obtainMessage();
+                    message.setData(bundle);
+                    h1.sendMessage(message);
+                }
+            }).start();
+        }
+        else {
+            result.setText("일요일은 학식을 운영하지 않습니다");
+        }
     }
     //  하위 라디오버튼 체크 해제
     private void uncheckAllChildRadioButtons(RadioGroup group) {
