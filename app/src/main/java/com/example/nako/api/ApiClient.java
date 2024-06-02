@@ -3,6 +3,7 @@ package com.example.nako.api;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+
 public class ApiClient {
     private static final String BASE_URL = "http://openapi.foodsafetykorea.go.kr/api/";
 
